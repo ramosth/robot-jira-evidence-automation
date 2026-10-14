@@ -1,0 +1,15 @@
+# Automação
+robotframework>=7.0
+robotframework-seleniumlibrary>=6.0
+selenium>=4.15
+PyYAML>=6.0
+pypdf>=4.0              # leitura dos laudos em PDF
+
+# Integração com o Jira (libraries/integracao_jira)
+requests>=2.31
+python-dotenv>=1.0
+
+# Qualidade de código
+robotframework-robocop>=5.0
+pytest>=8.0
+reportlab>=4.0         # gera laudos fictícios nos testes unitários

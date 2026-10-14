@@ -1,0 +1,24 @@
+# Credenciais: NUNCA versionar
+.env
+
+# Saídas da execução do Robot Framework
+log.html
+report.html
+output.xml
+results/
+libraries/integracao_jira/prints_tests/
+*.png
+!tests/fixtures/**/*.png
+!docs/**/*.png
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# IDEs e sistema
+.idea/
+.vscode/
+.DS_Store
