@@ -1,0 +1,90 @@
+# =============================================================================
+# Textos da Lista de laudos, dos modais de Reemissão/Correção e do laudo em PDF.
+#
+# Arquivo criado na versão de portfólio: estes textos eram referenciados pelas
+# keywords, mas ficavam em outro módulo do projeto. Ajuste-os ao texto exato
+# da aplicação testada.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# LISTA DE LAUDOS
+# -----------------------------------------------------------------------------
+mensagens:
+  estado_vazio:
+    titulo: "Você não possui laudos!"
+    descricao: "Clique em Solicitar laudo para criar a sua primeira análise."
+
+mensagens_download:
+  sucesso: "Download realizado com sucesso"
+  erro: "Não foi possível realizar o download"
+
+# Opções do menu de ações (três pontos), na ordem em que aparecem
+menu_acoes:
+  - Reemitir laudo
+  - Corrigir laudo
+  - Download do laudo
+
+# -----------------------------------------------------------------------------
+# MODAIS DE REEMISSÃO E CORREÇÃO
+# -----------------------------------------------------------------------------
+reemitir_modal:
+  reemitir_laudo:
+    titulo: Reemissão de laudo
+  reemissao_sucesso:
+    titulo: Reemissão em processamento!
+    conteudo_1: Seu laudo será reemitido e deve ficar pronto em alguns minutos.
+    conteudo_2: Você pode continuar navegando ou retornar à lista mais tarde.
+    botao_1: Voltar para lista de laudos
+    botao_2: Fechar
+  reemissao_erro:
+    titulo: Não foi possível reemitir o laudo.
+    conteudo_1: Ocorreu um erro ao processar a reemissão do Laudo Veicular.
+    conteudo_2: Por favor, tente novamente. Se o problema persistir, entre em contato com o suporte.
+    botao_1: Voltar para a lista de laudos
+    botao_2: Tentar reemitir novamente
+
+correcao_modal:
+  correcao_laudo:
+    titulo: Correção de laudo
+    titulo_etapa_1: Dados
+    titulo_etapa_2: Resumo
+  correcao_sucesso:
+    titulo: Correção em processamento!
+    conteudo_1: O laudo corrigido deve ficar pronto em alguns minutos.
+    botao_1: Voltar para lista de laudos
+    botao_2: Fechar
+  correcao_erro:
+    titulo: Não foi possível corrigir o laudo.
+    conteudo_1: Ocorreu um erro ao processar a correção do Laudo Veicular.
+    conteudo_2: Por favor, tente novamente. Se o problema persistir, entre em contato com o suporte.
+    botao_1: Voltar para a lista de laudos
+    botao_2: Tentar corrigir novamente
+
+# -----------------------------------------------------------------------------
+# LAUDO EM PDF (Termo de Avaliação de Veículo)
+# -----------------------------------------------------------------------------
+laudo_pdf:
+  titulo: "TERMO DE AVALIAÇÃO DE VEÍCULO"
+  # Seções que todo laudo completo deve conter, na ordem do documento
+  secoes:
+    - "Dados do Cliente"
+    - "Dados do Veículo"
+    - "Avaliação"
+    - "Estado do Veículo"
+  # Rodapé: bases consultadas, cada uma acompanhada de data e hora da consulta
+  bases_consultadas:
+    - "Base Nacional"
+    - "Base Estadual"
+    - "Base Nacional R/F"
+    - "SNG"
+    - "Base de Leilões"
+  # Campos da seção "Avaliação" (débitos e restrições do veículo)
+  campos_debitos_restricoes:
+    - "Multas Vencidas"
+    - "IPVAs vencidos"
+    - "DPVATs vencidos"
+    - "Licenciamentos vencidos"
+    - "Restrição por roubo"
+    - "Bloqueio por restrição"
+    - "RENAJUD"
+    - "Gravame ativo"

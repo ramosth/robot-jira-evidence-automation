@@ -1,0 +1,37 @@
+# Usuários de teste por perfil de acesso.
+# Os e-mails e senhas reais ficam fora do repositório: substitua os valores
+# abaixo pelos usuários do seu ambiente (ou injete via --variable na execução).
+
+LOGIN_SUPER:
+  EMAIL: "qa.super@vericar.example"
+  SENHA: "<defina_a_senha_do_ambiente>"
+  NOME: "Usuário Super Automação"
+  ACCOUNTNUMBER: 1
+
+LOGIN_ADMIN:
+  EMAIL: "qa.adm@vericar.example"
+  SENHA: "<defina_a_senha_do_ambiente>"
+  NOME: "Usuário Admin Automação"
+  ACCOUNTNUMBER: 1
+
+LOGIN_BASICO_COM_ACESSO:
+  EMAIL: "qa.basico@vericar.example"
+  SENHA: "<defina_a_senha_do_ambiente>"
+  NOME: "Usuário Básico Automação"
+  ACCOUNTNUMBER: 1
+  perfil: "Perfil VeriCar Teste"
+  obs_perfil: "Na ferramenta API VeriCar, permissão= Funcionalidades VeriCar; Na ferramenta VeriCar, permissão= Funcionalidades VeriCar"
+
+LOGIN_BASICO_SEM_ACESSO:
+  EMAIL: "qa.sem.acesso@vericar.example"
+  SENHA: "<defina_a_senha_do_ambiente>"
+  NOME: "Usuário Básico Sem Acesso Automação Auto"
+  ACCOUNTNUMBER: 1001
+  perfil: "perfilVeriCarSEMPermissaoAutomacao"
+  obs_perfil: "Na ferramenta API VeriCar, DESMARCAR a permissão= Funcionalidades VeriCar; MARCAR as ferramentas: Relatórios e Gestão de Contas"
+
+LOGIN_SEM_PERMISSAO_VERICAR:
+  EMAIL: "qa.super.sem.permissao@vericar.example"
+  SENHA: "<defina_a_senha_do_ambiente>"
+  NOME: "Usuário Super Automação VeriCar"
+  ACCOUNTNUMBER: 1

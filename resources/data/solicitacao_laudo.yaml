@@ -1,0 +1,289 @@
+# API VeriCar - Estrutura de Dados
+# VeriCar [Solicita]
+
+########## CONTEXTO PARA USO DO ENDPOINT ##########
+
+# Requisição com Campos Obrigatórios
+requisicao_campos_obrigatorios:
+  numeroProposta: string # Chave de identificação única (máx 30 caracteres)
+  tipoCliente: number # 1-PF, 2-PJ
+  nomeCliente: string # Nome do cliente (máx 100 caracteres)
+  documentoCliente: string # CPF/CNPJ sem formatação (máx 14 caracteres)
+  cnpjLoja: string # CNPJ sem formatação (máx 14 caracteres)
+  nomeVendedor: string # Nome do vendedor (máx 100 caracteres)
+  placa: string # Placa do veículo (máx 7 caracteres)
+  renavam: number # Número do RENAVAM (máx 12 dígitos)
+  ufPlaca: string # UF da placa (2 caracteres)
+  cidade: string # Cidade da loja (máx 40 caracteres)
+
+# Requisição Completa com Todos os Campos
+requisicao_completa:
+  # Campos obrigatórios
+  numeroProposta: string # Chave de identificação única (máx 30 caracteres)
+  tipoCliente: number # 1-PF, 2-PJ
+  nomeCliente: string # Nome do cliente (máx 100 caracteres)
+  documentoCliente: string # CPF/CNPJ sem formatação (máx 14 caracteres)
+  cnpjLoja: string # CNPJ sem formatação (máx 14 caracteres)
+  nomeVendedor: string # Nome do vendedor (máx 100 caracteres)
+  placa: string # Placa do veículo (máx 7 caracteres)
+  renavam: number # Número do RENAVAM (máx 12 dígitos)
+  ufPlaca: string # UF da placa (2 caracteres)
+  cidade: string # Cidade da loja (máx 40 caracteres)
+
+  # Campos opcionais
+  filial: string # Identificação da filial solicitante (máx 30 caracteres)
+  cpfVendedor: string # CPF do vendedor sem formatação (máx 11 caracteres)
+  quilometragem: number # Quilometragem do veículo (máx 7 dígitos)
+  consultarbaseLeiloes: boolean # Default: true
+
+  # Campos complexos
+  imagensVeiculo:
+    - tipo: number # 1-Frontal, 2-Lateral Direita, 3-Lateral Esquerda, 4-Odômetro, 5-Placa, 6-Traseira
+      imagem: string # Imagem em Base64
+
+  itensSeguranca:
+    - number # Array de números representando os itens
+    # Domínio: 1-Airbag, 2-Buzina, 3-Cabo de bateria, 4-Chave de roda, 5-Cintos de segurança,
+    # 6-Compressor, 7-Encosto de cabeça, 8-Espelhos, 9-Extintor na validade, 10-Freio ABS,
+    # 11-Freio de estacionamento, 12-Lanterna, 13-Limpador de para-brisas, 14-Luzes indicadoras,
+    # 15-Macaco, 16-Manual do Veículo, 17-Triângulo de sinalização
+
+  condicoesVeiculo:
+    - tipo: number # 1-Elétrica, 2-Lataria, 3-Mecânica, 4-Pintura, 5-Pneus, 6-Tapeçaria
+      condicao: number # Varia conforme o tipo (ver documentação)
+      observacoes: string # Observações sobre o item (máx 200 caracteres)
+
+# Resposta de SUCESSO
+resposta_sucesso:
+  controle:
+    - codigo: 0
+      descricao: string
+  idLaudo: string
+  laudo: string # PDF em formato Base64
+
+# Exemplo concreto de Resposta de Sucesso
+exemplo_resposta_sucesso:
+  controle:
+    - codigo: 0
+      descricao: "Laudo solicitado com sucesso"
+  idLaudo: "9876543210"
+  laudo: "JVBERi0xLjQKJcfs..."
+
+# Resposta de ERRO
+resposta_erro:
+  controle:
+    - codigo: number # Códigos diferentes de 0 indicam erro
+      descricao: string
+  idLaudo: null
+  laudo: null
+
+# Exemplo concreto de Resposta de Erro
+exemplo_resposta_erro:
+  controle:
+    - codigo: 10
+      descricao: "Documento do cliente inválido pelo dígito verificador."
+  idLaudo: null
+  laudo: null
+
+####################################################################
+# -----------------------------------------------------------------------------
+# TEXTOS
+# -----------------------------------------------------------------------------
+vericar_texto:
+  solicitar_laudo:
+    etapa_1:
+      titulo: Dados do laudo
+      descricao: Insira as informações básicas.
+    etapa_2:
+      titulo: Itens
+      descricao: Assinale os equipamentos desejados.
+    etapa_3:
+      titulo: Imagens para análise
+      descricao: Anexe documentos e imagens.
+    etapa_4:
+      titulo: Revise sua solicitação
+      descricao: Após confirmação, o laudo será solicitado.
+
+# -----------------------------------------------------------------------------
+# MODAIS
+# -----------------------------------------------------------------------------
+vericar_modal:
+  solicitar_laudo:
+    titulo: Solicitação de novo laudo
+    titulo_etapa_1: Dados
+    titulo_etapa_2: Itens
+    titulo_etapa_3: Anexos
+    titulo_etapa_4: Resumo
+  emissao_em_processamento:
+    botao_1: Voltar para lista de laudos
+    conteudo_1: Seu laudo será gerado e deve ficar pronto em alguns minutos. Você pode continuar navegando ou retornar à lista mais tarde para visualizar ou fazer o download.
+    titulo: Emissão em processamento!
+  emissao_erro:
+    botao_1: Voltar para a lista de laudos
+    botao_2: Tentar emitir novamente
+    conteudo_1: Ocorreu um erro ao processar a emissão do Laudo Veicular. Isso pode ter sido causado por uma inconsistência nos dados ou uma falha de comunicação com o sistema.
+    conteudo_2: Por favor, verifique os dados inseridos (se necessário) e tente a emissão novamente. Se o problema persistir, entre em contato com o suporte.
+    titulo: Não foi possível emitir o laudo.
+
+# -----------------------------------------------------------------------------
+# MENSAGENS DO SISTEMA
+# -----------------------------------------------------------------------------
+mensagens_form_solicitar:
+  erro:
+    num_proposta: "Número da proposta é obrigatório"
+    tipo_cliente: "Selecione um tipo de cliente"
+    nome_cliente: "Nome do cliente é obrigatório"
+    documento_cliente: "Documento é obrigatório"
+    documento_cliente_sem_tipo: "Selecione o tipo de cliente primeiro"
+    documento_cliente_tipo_errado_cpf: "Para Pessoa Física, informe um CPF válido"
+    documento_cliente_tipo_errado_cnpj: "Para Pessoa Jurídica, informe um CNPJ válido"
+    cnpj_loja_menos_14: "CNPJ deve ter 14 caracteres"
+    cnpj_loja: "CNPJ da loja é obrigatório"
+    cnpj_loja_invalido: "CNPJ inválido"
+    cpf_vendedor: "CPF inválido"
+    nome_vendedor: "Nome do vendedor é obrigatório"
+    nome_vendedor_carac_espec: "Nome inválido"
+    placa: "Insira uma placa válida"
+    renavam: "Insira um número válido"
+    estado: "Selecione um estado"
+    cidade: "Cidade é obrigatória"
+    quilometragem: "Quilometragem inconsistente."
+    filial: "Limite de caracteres do campo filial excedido (máx. 30)."
+    numero_proposta: "Número do ID do laudo inválido ou inexistente."
+    imagem_excedida: "O tamanho máximo por arquivo é de 3 MB, todavia o tamanho máximo combinado dos arquivos é de 2 MB."
+
+forms_solicitacao:
+  select:
+    tipo_cliente:
+      - Pessoa Jurídica
+      - Pessoa Física
+    estados:
+      - AC
+      - AL
+      - AP
+      - AM
+      - BA
+      - CE
+      - DF
+      - ES
+      - GO
+      - MA
+      - MT
+      - MS
+      - MG
+      - PA
+      - PB
+      - PR
+      - PE
+      - PI
+      - RJ
+      - RN
+      - RS
+      - RO
+      - RR
+      - SC
+      - SP
+      - SE
+      - TO
+  # Placas FICTÍCIAS: no ambiente real, use placas cadastradas na massa de teste.
+  placas:
+    # - TST1A01  ## placa com retorno parcial da base estadual
+    # - TST1A02  ## placa com retorno parcial da base estadual
+    # - TST1A03  ## placa com retorno parcial da base estadual
+    # - TST1A04  ## placa com retorno parcial da base estadual
+    - TST2B01
+    - TST2B02
+    - TST2B03
+    - TST2B04
+    - TST2B05
+    - TST2B06
+    - TST2B07
+    - TST2B08
+  placa_laudo_parcial: TST1A03
+  cidades:
+    - Salvador
+    - Fortaleza
+    - Brasília
+    - Rio de Janeiro
+    - Porto Velho
+    - Rio Branco
+  renavam:
+    - 12345678900
+  itens_de_seguranca:
+    - "Airbag"
+    - "Buzina"
+    - "Cabo de bateria"
+    - "Chave de roda"
+    - "Cintos de segurança"
+    - "Compressor"
+    - "Encosto de cabeça"
+    - "Espelhos (internos e retrovisores)"
+    - "Extintor de incêndio na validade"
+    - "Freio ABS"
+    - "Freio de estacionamento (freio de mão)"
+    - "Lanterna"
+    - "Limpador de para-brisas"
+    - "Luzes indicadoras de direção"
+    - "Macaco"
+    - "Manual do veículo"
+    - "Triângulo de sinalização"
+  nomes:
+    cliente_caracteres_especiais: José d'Oliveira & Cia
+    vendedor_caracteres_especiais: María García-Silva LTDA.
+  limites:
+    nome_cliente: "Cliente com nome muito longo para testar o limite de caracteres do campo nomeCliente até completar cem caracteres"
+    nome_cliente_final: "Cliente com nome muito longo para testar o limite de caracteres do campo nomeCliente até completar c"
+    nome_vendedor: "Vendedor com nome muito longo para testar o limite de caracteres do campo nomeVendedor até completar cem caracteres"
+    nome_vendedor_final: "Vendedor com nome muito longo para testar o limite de caracteres do campo nomeVendedor até completar"
+    cidade: "Florianópolis com nome muito longo para teste"
+    cidade_final: "Florianópolis com nome muito longo para "
+    filial: "filial bem grande para validar o tamanho máximo de 30 carateres no campo"
+    filial_final: "filial bem grande para validar"
+    quilometragem: "123456789"
+    quilometragem_final: "1234567"
+    numero_proposta: "5375557127807805155375557127807805155555564747475747474747442568681"
+    numero_proposta_final: "537555712780780515537555712780"
+    cnpj: "7247785200018555798787"
+    observacao_item: "Observação extremamente detalhada sobre a lataria do veículo para testar o limite máximo de caracteres permitidos neste campo de texto que deve conter até duzentos caracteres no total para validar o comportamento do sistema."
+    observacao_item_final: "Observação extremamente detalhada sobre a lataria do veículo para testar o limite máximo de caracteres permitidos neste campo de texto que deve conter até duzentos caracteres no total para validar o c"
+  # Imagens SINTÉTICAS geradas para o portfólio (tests/fixtures/uploads)
+  imagem:
+    foto01: "tests/fixtures/uploads/carro_vermelho/imagem_1_frontal.png"
+    foto02: "tests/fixtures/uploads/carro_vermelho/imagem_2_lateral_direita.png"
+    foto03: "tests/fixtures/uploads/carro_vermelho/imagem_3_lateral_esquerda.png"
+    foto04: "tests/fixtures/uploads/carro_vermelho/imagem_4_odometro.png"
+    foto05: "tests/fixtures/uploads/carro_vermelho/imagem_5_placa.png"
+    foto06: "tests/fixtures/uploads/carro_vermelho/imagem_6_traseira.png"
+    foto07: "tests/fixtures/uploads/arquivos/carro_azul.jpeg"                 # formato JPEG
+    foto08: "tests/fixtures/uploads/carro_preto/imagem_acima_2mb.png"         # ~3 MB: excede o limite
+    foto09: "tests/fixtures/uploads/arquivos/arquivo_nao_suportado.pdf"       # formato não suportado
+    foto10: "tests/fixtures/uploads/arquivos/carro_vermelho_800x600.png"
+    foto11: "tests/fixtures/uploads/arquivos/carro_vermelho_960x540.png"
+    foto12: "tests/fixtures/uploads/arquivos/carro_vermelho_1024x768.png"
+    foto13: "tests/fixtures/uploads/arquivos/carro_vermelho_1920x1080.png"
+  condicoes_veiculo:
+    condicao_1:
+      nome: "Elétrica"
+      tipo: "Normal"
+      observacao: "Sistema apresenta falhas intermitentes"
+    condicao_2:
+      nome: "Lataria"
+      tipo: "Danificado"
+      observacao: "Sistema apresenta Lataria Danificada"
+    condicao_3:
+      nome: "Mecânica"
+      tipo: "Com falhas"
+      observacao: "Sistema apresenta mecânica com falhas"
+    condicao_4:
+      nome: "Pintura"
+      tipo: "Bom"
+      observacao: "Sistema apresenta Pintura boa"
+    condicao_5:
+      nome: "Pneus"
+      tipo: "Bom estado"
+      tipo_1: "Bom Estado"
+      observacao: "Sistema apresenta Pneus em bom estado"
+    condicao_6:
+      nome: "Tapeçaria"
+      tipo: "Péssimo"
+      observacao: "Sistema apresenta Tapeçaria péssima"
