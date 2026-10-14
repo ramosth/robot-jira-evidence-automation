@@ -4,7 +4,6 @@
 ![Selenium](https://img.shields.io/badge/SeleniumLibrary-43B02A?style=flat-square&logo=selenium&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Jira](https://img.shields.io/badge/Jira%20Cloud-REST%20API-0052CC?style=flat-square&logo=jira&logoColor=white)
-![CI](https://img.shields.io/badge/CI-dry--run%20%2B%20pytest-2088FF?style=flat-square&logo=githubactions&logoColor=white)
 
 Automação de testes de front-end de um sistema de **solicitação de laudos de vistoria veicular**, com **106 cenários em BDD**, Page Objects e uma integração em Python que **publica as evidências de cada cenário direto no card do Jira**: print do relatório, screenshot da tela, nota de aprovado ou reprovado e mudança de status no workflow.
 
@@ -133,7 +132,6 @@ Saída de exemplo:
 
 ## Qualidade do próprio código de teste
 
-- **CI no GitHub Actions**: a cada push roda o dry-run dos 106 cenários e os testes unitários
 - **Testes unitários** (pytest) das regras críticas: falha tem prioridade sobre sucesso, screenshot mais recente, decisão de transição e validação do PDF com um laudo fictício gerado na hora
 - **Credenciais fora do código**: `.env` e senhas não são versionados
 
